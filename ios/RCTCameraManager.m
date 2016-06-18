@@ -406,6 +406,9 @@ RCT_EXPORT_METHOD(hasFlash:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRej
     }]];
 
     [self.session startRunning];
+     dispatch_sync(dispatch_get_main_queue(), ^(){
+          self.previewLayer.hidden = NO;
+      });
   });
 }
 
@@ -423,6 +426,10 @@ RCT_EXPORT_METHOD(hasFlash:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRej
     for(AVCaptureOutput *output in self.session.outputs) {
       [self.session removeOutput:output];
     }
+    
+    dispatch_sync(dispatch_get_main_queue(), ^(){
+       self.previewLayer.hidden = YES;
+    });
   });
 }
 
